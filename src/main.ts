@@ -1,20 +1,24 @@
 import 'regenerator-runtime/runtime'
 import Wallet from '@project-serum/sol-wallet-adapter';
-import {clusterApiUrl, Connection, SystemProgram, Transaction} from '@solana/web3.js'
+import {Connection, PublicKey, SystemProgram, Transaction} from '@solana/web3.js'
 
-async function index() {
-    let connection = new Connection(clusterApiUrl('testnet'));
-    let providerUrl = 'https://www.sollet.io';
-    let wallet = new Wallet(providerUrl);
-    wallet.on('connect', publicKey => console.log('Connected to ' + publicKey.toBase58()));
-    wallet.on('disconnect', () => console.log('Disconnected'));
+
+let connection = new Connection("http://localhost:8899");
+let wallet = new Wallet('https://www.sollet.io');
+wallet.on('connect', publicKey => console.log('Connected to ' + publicKey.toBase58()));
+wallet.on('disconnect', () => console.log('Disconnected'));
+
+export async function connectWallet() {
     await wallet.connect();
+}
 
+export async function sendTx() {
+    const recipient = new PublicKey("G7kqxtbrw6KbpChGc1u853eAXG1JXHgKjuAe8fTGktEe");
     let transaction = new Transaction().add(
         SystemProgram.transfer({
             fromPubkey: wallet.publicKey,
-            toPubkey: wallet.publicKey,
-            lamports: 100,
+            toPubkey: recipient,
+            lamports: 500_000_000,
         })
     );
     let {blockhash} = await connection.getRecentBlockhash();
@@ -25,9 +29,3 @@ async function index() {
     await connection.confirmTransaction(txid);
 }
 
-export function z1() {
-    console.log("z1")
-}
-
-
-index().catch(err => console.error(err))

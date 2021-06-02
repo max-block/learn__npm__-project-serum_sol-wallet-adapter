@@ -2,10 +2,9 @@
   "name": "learn__npm__project-serum_sol-wallet-adapter",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/main.ts",
   "scripts": {
-    "start": "http-server",
-    "build": "cross-env NODE_ENV=production webpack"
+    "start": "parcel src/index.html --global main"
   },
   "repository": {
     "type": "git",
@@ -20,15 +19,10 @@
   "homepage": "https://github.com/max-block/learn__npm__project-serum_sol-wallet-adapter#readme",
   "dependencies": {
     "@project-serum/sol-wallet-adapter": "^0.2.0",
-    "@solana/web3.js": "^1.12.0",
-    "buffer": "^6.0.1",
-    "buffer-layout": "^1.2.1",
-    "http-server": "^0.12.3"
+    "@solana/web3.js": "^1.15.0"
   },
   "devDependencies": {
-    "cross-env": "^7.0.3",
     "parcel-bundler": "^1.12.5",
-    "webpack": "^5.37.1",
-    "webpack-cli": "^4.7.0"
+    "typescript": "^4.3.2"
   }
 }
